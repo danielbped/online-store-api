@@ -1,0 +1,31 @@
+{
+   "name": "online-store-api",
+   "version": "1.0.0",
+   "description": "",
+   "devDependencies": {
+      "@tsconfig/node16": "1.0",
+      "@types/bcrypt": "^5.0.2",
+      "@types/express": "^4.17.21",
+      "@types/jsonwebtoken": "^9.0.6",
+      "@types/node": "^16.11.10",
+      "ts-node": "10.9.1",
+      "typescript": "4.5.2"
+   },
+   "dependencies": {
+      "bcrypt": "^5.1.1",
+      "cors": "^2.8.5",
+      "dotenv": "^16.4.5",
+      "express": "^4.19.1",
+      "http-status-codes": "^2.3.0",
+      "jsonwebtoken": "^9.0.2",
+      "pg": "^8.4.0",
+      "reflect-metadata": "^0.1.13",
+      "ts-node-dev": "^2.0.0",
+      "typeorm": "0.3.20",
+      "uuidv4": "^6.2.13"
+   },
+   "scripts": {
+      "start": "ts-node-dev --respawn --ignore-watch node_modules src/server.ts",
+      "typeorm": "typeorm-ts-node-commonjs"
+   }
+}
