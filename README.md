@@ -28,3 +28,67 @@ A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como pro
 - **[Docker](https://docs.docker.com/compose/)**: Uma ferramenta para definir e executar aplicações multi-contêineres. É a chave para desbloquear uma experiência de desenvolvimento e implantação simplificada e eficiente.
 
 ## Instruções para rodar o projeto <a name="instrucoes"></a>
+
+### Será necessário ter instalado na sua máquina:
+
+```
+  Git
+  Node v20.11.1
+  Docker
+```
+
+- Clone o repositório com o comando git clone:
+
+```
+  git clone git@github.com:danielbped/online-store-api.git
+```
+
+- Entre no diretório que acabou de ser criado:
+
+```
+  cd online-store-api
+```
+- Para o projeto funcionar na sua máquia, será necessário instalar suas dependências, para isso, utilize npm install:
+```
+  npm install
+```
+
+Outro passo importante é instanciarmos o banco de dados. Para isso, foi criado um arquivo **docker-compose** para gerar uma banco de dados local, o banco de dados utilizado é com a linguagem de consulta **PostgreSQL**. Então, para instanciar o banco de dados, basta rodar o comando abaixo no terminal:
+
+```
+  docker-compose up -d
+```
+
+## .env
+Na raiz do projeto, será necessário criar um arquivo .env, com as seguintes informações:
+
+```
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+POSTGRES_DB=
+HOST_DB=
+PORT=
+SECRET_KEY_JWT=
+STORE_API_KEY=
+STORE_API_PASSWORD=
+STORE_NAME=
+
+```
+
+Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, e alterar os dados **SECRET_KEY_JWT**,**STORE_API_KEY**, **STORE_API_PASSWORD** e **STORE_NAME** de acordo com a loja vinculada ao Shopify. Em relação às outras variáveis, podem ser usadas as credenciais presentes no arquivo, são responsáveis pela criação do banco de dados.
+
+## Iniciando o projeto
+
+Para rodar o projeto na sua máquina, basta utilizar o comando a seguir:
+
+```
+  npm start
+```
+
+Caso tudo esteja de acordo, você verá as seguintes mensagens no terminal:
+
+```
+  Server running on port 3000
+  Database connected successfully
+```
+
