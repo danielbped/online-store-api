@@ -14,12 +14,17 @@ export default class FavoriteService {
     return this.favoriteModel.getByUser(id);
   };
 
+  public async findById(id: string) {
+    return this.favoriteModel.findById(id);
+  };
+
   public async create(favorite: ICreateFavoriteDTO) {
     if (favorite.title && favorite.itemId && favorite.price && favorite.user) {
       try {
         return this.favoriteModel.create(favorite);
       } catch (err: any) {
-        throw new Error(err.message);
+        console.error(err);
+        throw new Error(err.message || ErrorMessage.UnexpectedError);
       };
     };
 
@@ -37,7 +42,8 @@ export default class FavoriteService {
 
         return this.favoriteModel.remove(id);
       } catch (err: any) {
-        throw new Error(err.message);
+        console.error(err);
+        throw new Error(err.message || ErrorMessage.UnexpectedError);
       };
     };
 
