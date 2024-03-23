@@ -28,7 +28,7 @@ describe('Expected that Login Route', () => {
 
     const response = await request(app)
       .post('/login')
-      .send(MOCKED_LOGIN)
+      .send(MOCKED_LOGIN);
 
     expect(response.status).toBe(StatusCodes.OK);
     expect(response.body).toEqual(MOCKED_TOKEN);

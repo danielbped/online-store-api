@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import ProductsProvider from '../../provider/ProductsProvider'
 import ErrorMessage from '../../utils/ErrorMessage';
 import Authentication from '../../middleware/Authentication';
+import { Request, Response } from 'express';
 
 const router = Router({ mergeParams: true });
 
@@ -10,7 +11,7 @@ const productsProvider = new ProductsProvider();
 
 const { isTokenValid } = new Authentication();
 
-router.get('/', async (_req, res) => {
+router.get('/', async (_req: Request, res: Response) => {
   try {
     const result = await productsProvider.list();
 
@@ -23,7 +24,7 @@ router.get('/', async (_req, res) => {
   };
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await productsProvider.findById(id);

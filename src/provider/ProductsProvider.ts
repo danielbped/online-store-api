@@ -16,8 +16,8 @@ export default class ProductsProvider {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
-  }
+    });
+  };
 
   public async list() {
     try {
@@ -26,8 +26,8 @@ export default class ProductsProvider {
     } catch (err: any) {
       console.error(err);
       throw new Error(err.message)
-    }
-  }
+    };
+  };
 
   public async findById(id: string) {
     try {
@@ -36,6 +36,6 @@ export default class ProductsProvider {
     } catch (err: any) {
       console.error(err);
       throw new Error(err.message)
-    }
-  }
-}
+    };
+  };
+};

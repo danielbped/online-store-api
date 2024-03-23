@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
 import ErrorMessage from '../../utils/ErrorMessage';
+import { Request, Response } from 'express';
 
 const router = Router({ mergeParams: true });
 
-router.get('/', async (_req, res) => {
+router.get('/', async (_req: Request, res: Response) => {
   try {
     return res.status(StatusCodes.OK).json({ message: 'OK' });
   } catch (err: any) {

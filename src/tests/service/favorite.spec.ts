@@ -36,7 +36,7 @@ describe('Expect that FavoriteService can', () => {
   const MOCKED_IMAGES = [
     "MOCKED_IMAGE_2_SRC_1",
     "MOCKED_IMAGE_2_SRC_2"
-  ]
+  ];
 
   test('1 - Get all favorites', async () => {
     const ExpectedResponse = [
