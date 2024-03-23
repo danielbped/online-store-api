@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn } from "typeorm"
 import { uuid } from "uuidv4"
 
-export interface ICreateUserDTO extends Omit<User, 'id'> {}
+export interface ICreateUserDTO extends Omit<User, 'id' | 'createdAt' | 'updatedAt'> {}
 
 @Entity()
 export default class User {
