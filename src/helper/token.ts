@@ -1,4 +1,4 @@
-import { User } from "../entity/User";
+import User from "../entity/User";
 import { sign, verify } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
@@ -8,7 +8,7 @@ const {
 
 dotenv.config();
 
-export class TokenGenerator {
+export default class Token {
   public generate(user: User): string {
     return sign({ ...user }, String(SECRET_KEY_JWT), {
       expiresIn: '24h'
