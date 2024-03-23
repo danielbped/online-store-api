@@ -91,7 +91,7 @@ describe('Expect that UserService can', () => {
       "password": '<PASSWORD>',
       createdAt,
       updatedAt
-    }
+    };
 
     const mockCreate = jest.spyOn(userService, 'create');
     mockCreate.mockResolvedValue(ExpectedResponse);
@@ -130,7 +130,7 @@ describe('Expect that UserService can', () => {
     const token = await userService.login(userEmail, userPassword);
 
     expect(typeof token).toBe('string');
-    expect(token.length).toBeGreaterThan(0);
+    expect(token?.length).toBeGreaterThan(0);
     expect(mockFindByEmail).toHaveBeenCalledWith(userEmail);
   });
 
@@ -142,5 +142,36 @@ describe('Expect that UserService can', () => {
     mockFindByEmail.mockResolvedValue(null);
 
     await expect(userService.login(userEmail, userPassword)).rejects.toThrow(ErrorMessage.UserNotFound);
+  });
+
+  test('8 - Find a user by Email', async () => {
+    const ExpectedResponse = {
+      "id": 'MOCKED_ID_1',
+      "firstName": 'MOCKED_FIRST_NAME',
+      "lastName": "MOCKED_LAST_NAME",
+      "email": 'MOCKED_EMAIL_1',
+      "password": '<PASSWORD>',
+      createdAt,
+      updatedAt
+    };
+
+    const mockUser = jest.spyOn(userService, 'findByEmail');
+    mockUser.mockResolvedValue(ExpectedResponse);
+
+    const user = await userService.findByEmail(ExpectedResponse.email);
+
+    expect(user).toEqual(ExpectedResponse);
+    expect(mockUser).toHaveBeenCalled();
+  });
+
+  test('9 - Handle error when user is not found in Email', async () => {
+    const nonExistentUserEmail = 'NON_EXISTENT_EMAIL';
+  
+    const mockFindByEmail = jest.spyOn(userService['userModel'], 'findByEmail');
+    mockFindByEmail.mockRejectedValue(new Error(ErrorMessage.UserNotFound));
+
+    await expect(userService.findByEmail(nonExistentUserEmail)).rejects.toThrow(ErrorMessage.UserNotFound);
+
+    expect(mockFindByEmail).toHaveBeenCalledWith(nonExistentUserEmail);
   });
 });

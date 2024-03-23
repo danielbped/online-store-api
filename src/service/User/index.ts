@@ -26,6 +26,16 @@ export default class UserService {
     return user;
   };
 
+  public async findByEmail(email: string) {
+    const user = this.userModel.findByEmail(email);
+    
+    if (!user) {
+      throw new Error(ErrorMessage.UserNotFound);
+    };
+
+    return user;
+  };
+
   public async create(user: ICreateUserDTO) {
     if (user.email && user.password && user.firstName) {
 
@@ -34,19 +44,19 @@ export default class UserService {
 
         if (userExists) {
           throw new Error(ErrorMessage.UserAlreadyExists);
-        }
+        };
 
         const hashPassword = await this.passwordHandler.encode(user.password);
 
         if (!hashPassword) {
           throw new Error(ErrorMessage.EncodeError);
-        }
+        };
         
         return this.userModel.create({ ...user, password: hashPassword });
       } catch (err: any) {
         throw new Error(err.message);
-      }
-    }
+      };
+    };
 
     throw new Error(ErrorMessage.MissingRequiredParameters);
   };
@@ -58,22 +68,22 @@ export default class UserService {
 
         if (!user) {
           return null;
-        }
+        };
 
         const validPassword = await this.passwordHandler.compare(password, user.password);
 
         if (!validPassword) {
           throw new Error(ErrorMessage.WrongPassword);
-        }
+        };
 
         const token = this.token.generate(user);
         
         return token;
       } catch (err: any) {
         throw new Error(err.message);
-      }
-    }
+      };
+    };
 
     throw new Error(ErrorMessage.MissingRequiredParameters);
   };
-}
+};
