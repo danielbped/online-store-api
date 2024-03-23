@@ -1,0 +1,15 @@
+export default {
+  TokenNotFound: 'Token not found.',
+  InvalidToken: 'Invalid token.',
+  InternalServerError: 'Internal server error.',
+  ErrorFindingRoutes: 'Encountered Error initializing routes from',
+  MissingRequiredParameters: 'Missing required parameters.',
+  FavoriteNotFound: 'Favorite not found.',
+  MissingFavoriteId: 'Missing favorite Id.',
+  EncodeError: 'Something went wrong while encoding password.',
+  WrongPassword: 'Wrond password.',
+  UserNotFound: 'User not found.',
+  IdNotFound: 'Id not found.',
+  Unauthorized: 'User has no permission to deal with it.',
+  UserAlreadyExists: 'User already exists.',
+}
