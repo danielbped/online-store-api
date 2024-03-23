@@ -24,7 +24,7 @@ export default class Authentication {
       return next();
     } catch (err: any) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message });
-    }
+    };
   };
 
   public async isAuthorized(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
@@ -40,7 +40,7 @@ export default class Authentication {
 
       if (!user) {
         return res.status(StatusCodes.BAD_REQUEST).json({ message: ErrorMessage.UserNotFound });
-      }
+      };
 
       const loggedUser = this.token.compare(token);
 
@@ -48,11 +48,11 @@ export default class Authentication {
 
       if (!isAuthorized) {
         return res.status(StatusCodes.UNAUTHORIZED).json({ message: ErrorMessage.Unauthorized });
-      }
+      };
 
       return next();
     } catch (err: any) {
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message });
-    }
+    };
   };
-}
+};

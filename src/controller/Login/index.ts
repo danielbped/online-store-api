@@ -2,12 +2,16 @@ import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
 import UserService from '../../service/User';
 import ErrorMessage from '../../utils/ErrorMessage';
+import LoginValidation from '../../middleware/Login';
+import { Request, Response } from 'express';
 
 const router = Router({ mergeParams: true });
 
 const userService = new UserService();
 
-router.post('/', async (req, res) => {
+const { validateInfo } = new LoginValidation();
+
+router.post('/', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const result = await userService.login(email, password);
@@ -26,7 +30,10 @@ router.post('/', async (req, res) => {
 });
 
 const login = (root: Router) => {
-  root.use('/login', router)
+  root.use('/login',
+    validateInfo,
+    router,
+  )
 };
 
 export default login;

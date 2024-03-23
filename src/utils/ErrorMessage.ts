@@ -1,6 +1,9 @@
 export default {
   TokenNotFound: 'Token not found.',
   InvalidToken: 'Invalid token.',
+  InvalidName: 'Invalid name.',
+  InvalidEmail: 'Invalid email.',
+  InvalidPassword: 'Invalid password.',
   InternalServerError: 'Internal server error.',
   ErrorFindingRoutes: 'Encountered Error initializing routes from',
   MissingRequiredParameters: 'Missing required parameters.',
@@ -12,4 +15,8 @@ export default {
   IdNotFound: 'Id not found.',
   Unauthorized: 'User has no permission to deal with it.',
   UserAlreadyExists: 'User already exists.',
-}
+  InvalidTitle: 'Invalid title.',
+  InvalidImages: 'Images must have at least 1 item',
+  InvalidItemId: 'Invalid item id.',
+  InvalidPrice: 'Invalid price.',
+};

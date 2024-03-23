@@ -5,16 +5,20 @@ import Favorite from '../../entity/Favorite';
 import ErrorMessage from '../../utils/ErrorMessage';
 import Authentication from '../../middleware/Authentication';
 import UserService from '../../service/User';
+import { Request, Response } from 'express';
+import FavoriteValidation from '../../middleware/Favorite';
 
 const router = Router({ mergeParams: true });
 
 const favoriteService = new FavoriteService();
 
+const { validateInfo } = new FavoriteValidation();
+
 const userService = new UserService();
 
 const { isTokenValid, isAuthorized } = new Authentication();
 
-router.get('/', async (_req, res) => {
+router.get('/', async (_req: Request, res: Response) => {
   try {
     const result = await favoriteService.getAll();
 
@@ -27,7 +31,7 @@ router.get('/', async (_req, res) => {
   };
 });
 
-router.get('/:id', isAuthorized, async (req, res) => {
+router.get('/:id', isAuthorized, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const result = await favoriteService.getAllByUser(id);
@@ -41,7 +45,7 @@ router.get('/:id', isAuthorized, async (req, res) => {
   };
 });
 
-router.post('/:id', isAuthorized, async (req, res) => {
+router.post('/:id', isAuthorized, validateInfo, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { title, itemId, price, images } = req.body;
@@ -59,7 +63,7 @@ router.post('/:id', isAuthorized, async (req, res) => {
   };
 });
 
-router.delete('/:id/:favId', isAuthorized, async (req, res) => {
+router.delete('/:id/:favId', isAuthorized, async (req: Request, res: Response) => {
   try {
     const { favId } = req.params;
     await favoriteService.remove(favId);

@@ -3,12 +3,16 @@ import { StatusCodes } from 'http-status-codes'
 import UserService from '../../service/User';
 import User from '../../entity/User';
 import ErrorMessage from '../../utils/ErrorMessage';
+import UserValidation from '../../middleware/User';
+import { Request, Response } from 'express';
 
 const router = Router({ mergeParams: true });
 
+const { validateInfo } = new UserValidation();
+
 const userService = new UserService();
 
-router.get('/', async (_req, res) => {
+router.get('/', async (_req: Request, res: Response) => {
   try {
     const result = await userService.getAll();
 
@@ -21,7 +25,7 @@ router.get('/', async (_req, res) => {
   };
 });
 
-router.post('/', async (req, res) => {
+router.post('/', validateInfo, async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, email, password } = req.body;
     const result = await userService.create({ firstName, lastName, email, password } as User);
