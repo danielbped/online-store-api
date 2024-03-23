@@ -28,7 +28,9 @@ export default class FavoriteModel {
     return this.favoriteRepository.save(favorite);
   }
 
-  public async remove(id: string) {
-    return this.favoriteRepository.delete(id);
+  public async remove(id: string): Promise<boolean> {
+    await this.favoriteRepository.delete(id);
+
+    return true;
   }
 }
