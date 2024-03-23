@@ -1,38 +1,49 @@
 
-import { TokenGenerator } from "../../helper/generateToken";
+import Token from "../../helper/token";
 import PasswordHandler from "../../helper/passwordHandler";
 import UserModel from "../../model/User";
 import { ICreateUserDTO } from "../../entity/User";
+import ErrorMessage from "../../utils/ErrorMessage";
 
 export default class UserService {
   private passwordHandler = new PasswordHandler();
 
-  private tokenGenerator = new TokenGenerator();
+  private token = new Token();
 
   private userModel = new UserModel();
 
   public async getAll() {
     return this.userModel.list();
-  }
+  };
+
+  public async findById(id: string) {
+    return this.userModel.findById(id);
+  };
 
   public async create(user: ICreateUserDTO) {
     if (user.email && user.password && user.firstName) {
 
       try {
-        const hashPassword = await this.passwordHandler.encode(user.password);
+        const userExists = await this.userModel.findByEmail(user.email);
 
-        if (hashPassword) {
-          return this.userModel.create({ ...user, password: hashPassword });
+        if (userExists) {
+          throw new Error(ErrorMessage.UserAlreadyExists);
         }
 
-        throw new Error('Something went wrong while encoding password.');
+        const hashPassword = await this.passwordHandler.encode(user.password);
+
+        if (!hashPassword) {
+          throw new Error(ErrorMessage.EncodeError);
+        }
+        
+        return this.userModel.create({ ...user, password: hashPassword });
       } catch (err: any) {
         throw new Error(err.message);
       }
     }
 
-    throw new Error('Missing required parameters.');
-  }
+    throw new Error(ErrorMessage.MissingRequiredParameters);
+  };
 
   public async login(email: string, password: string): Promise<string> {
     if (email && password) {
@@ -40,16 +51,16 @@ export default class UserService {
         const user = await this.userModel.findByEmail(email);
 
         if (!user) {
-          throw new Error('User not found.');
+          throw new Error(ErrorMessage.UserNotFound);
         }
 
         const validPassword = await this.passwordHandler.compare(password, user.password);
 
         if (!validPassword) {
-          throw new Error('Wrong password.');
+          throw new Error(ErrorMessage.WrongPassword);
         }
 
-        const token = this.tokenGenerator.generate(user);
+        const token = this.token.generate(user);
         
         return token;
       } catch (err: any) {
@@ -57,6 +68,6 @@ export default class UserService {
       }
     }
 
-    throw new Error('Missing required parameters.');
-  }
+    throw new Error(ErrorMessage.MissingRequiredParameters);
+  };
 }

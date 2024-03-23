@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../database";
-import { User } from "../../entity/User";
+import User from "../../entity/User";
 import { ICreateUserDTO } from "../../entity/User";
 
 export default class UserModel {
@@ -16,6 +16,10 @@ export default class UserModel {
 
   public async findByEmail(email: string): Promise<User | null> {
     return this.userRepository.findOne({ where: { email } });
+  }
+
+  public async findById(id: string): Promise<User | null> {
+    return this.userRepository.findOne({ where: { id } });
   }
 
   public async create(data: ICreateUserDTO): Promise<User> {
