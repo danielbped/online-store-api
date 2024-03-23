@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, Many
 import { uuid } from "uuidv4"
 import User from "./User";
 
-export interface ICreateFavoriteDTO extends Omit<Favorite, 'id'> {}
+export interface ICreateFavoriteDTO extends Omit<Favorite, 'id' | 'createdAt' | 'updatedAt'> {}
 
 @Entity()
 export default class Favorite {
