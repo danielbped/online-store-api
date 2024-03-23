@@ -5,9 +5,13 @@ import ErrorMessage from '../utils/ErrorMessage';
 import PasswordHandler from '../helper/passwordHandler';
 
 export default class LoginValidation {
-  private userService = new UserService();
+  private userService: UserService;
 
   private passwordHandler = new PasswordHandler();
+
+  constructor(userService: UserService) {
+    this.userService = userService;
+  };
 
   public async validateInfo(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     try {
@@ -31,6 +35,7 @@ export default class LoginValidation {
 
       return next();
     } catch (err: any) {
+      console.error(err);
       return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message });
     };
   };
