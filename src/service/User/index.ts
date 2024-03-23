@@ -51,13 +51,13 @@ export default class UserService {
     throw new Error(ErrorMessage.MissingRequiredParameters);
   };
 
-  public async login(email: string, password: string): Promise<string> {
+  public async login(email: string, password: string): Promise<string | null> {
     if (email && password) {
       try {
         const user = await this.userModel.findByEmail(email);
 
         if (!user) {
-          throw new Error(ErrorMessage.UserNotFound);
+          return null;
         }
 
         const validPassword = await this.passwordHandler.compare(password, user.password);
