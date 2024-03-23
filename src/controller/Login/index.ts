@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { NextFunction, Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
 import UserService from '../../service/User';
 import ErrorMessage from '../../utils/ErrorMessage';
@@ -9,7 +9,7 @@ const router = Router({ mergeParams: true });
 
 const userService = new UserService();
 
-const { validateInfo } = new LoginValidation();
+const loginValidation = new LoginValidation(userService);
 
 router.post('/', async (req: Request, res: Response) => {
   try {
@@ -29,9 +29,13 @@ router.post('/', async (req: Request, res: Response) => {
   };
 });
 
+const validateLogin = (req: Request, res: Response, next: NextFunction) => {
+  return loginValidation.validateInfo(req, res, next);
+};
+
 const login = (root: Router) => {
   root.use('/login',
-    validateInfo,
+    validateLogin,
     router,
   )
 };
