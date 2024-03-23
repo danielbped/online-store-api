@@ -9,7 +9,7 @@ router.get('/', async (_req: Request, res: Response) => {
   try {
     return res.status(StatusCodes.OK).json({ message: 'OK' });
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });

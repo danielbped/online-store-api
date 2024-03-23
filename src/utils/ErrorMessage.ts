@@ -19,4 +19,5 @@ export default {
   InvalidImages: 'Images must have at least 1 item',
   InvalidItemId: 'Invalid item id.',
   InvalidPrice: 'Invalid price.',
+  UnexpectedError: 'Unexpected Error.',
 };

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import dotenv from 'dotenv';
+import ErrorMessage from '../utils/ErrorMessage';
 
 dotenv.config();
 
@@ -25,7 +26,7 @@ export default class ProductsProvider {
       return response.data;
     } catch (err: any) {
       console.error(err);
-      throw new Error(err.message)
+      throw new Error(err.message || ErrorMessage.UnexpectedError);
     };
   };
 
@@ -35,7 +36,7 @@ export default class ProductsProvider {
       return response.data;
     } catch (err: any) {
       console.error(err);
-      throw new Error(err.message)
+      throw new Error(err.message || ErrorMessage.UnexpectedError);
     };
   };
 };

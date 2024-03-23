@@ -17,7 +17,7 @@ router.get('/', async (_req: Request, res: Response) => {
 
     return res.status(StatusCodes.OK).json(result);
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });
@@ -31,7 +31,7 @@ router.get('/:id', async (req: Request, res: Response) => {
 
     return res.status(StatusCodes.OK).json(result);
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });

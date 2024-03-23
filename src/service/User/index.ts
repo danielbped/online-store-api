@@ -54,7 +54,8 @@ export default class UserService {
         
         return this.userModel.create({ ...user, password: hashPassword });
       } catch (err: any) {
-        throw new Error(err.message);
+        console.error(err);
+        throw new Error(err.message || ErrorMessage.UnexpectedError);
       };
     };
 
@@ -80,7 +81,8 @@ export default class UserService {
         
         return token;
       } catch (err: any) {
-        throw new Error(err.message);
+        console.error(err);
+        throw new Error(err.message || ErrorMessage.UnexpectedError);
       };
     };
 

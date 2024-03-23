@@ -24,7 +24,7 @@ router.get('/', async (_req: Request, res: Response) => {
 
     return res.status(StatusCodes.OK).json(result);
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });
@@ -38,7 +38,7 @@ router.get('/:id', isAuthorized, async (req: Request, res: Response) => {
 
     return res.status(StatusCodes.OK).json(result);
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });
@@ -56,7 +56,7 @@ router.post('/:id', isAuthorized, validateInfo, async (req: Request, res: Respon
 
     return res.status(StatusCodes.CREATED).json(result);
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });
@@ -70,7 +70,7 @@ router.delete('/:id/:favId', isAuthorized, async (req: Request, res: Response) =
 
     return res.status(StatusCodes.NO_CONTENT).send();
   } catch (err: any) {
-    console.error(err.message);
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       message: err.message || ErrorMessage.InternalServerError
     });

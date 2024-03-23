@@ -14,8 +14,8 @@ const findAvailableRoutes = () => {
         const func = Object.values(require(`${routesDirectory}/${routeFile}`))[0] as Function;
         func(router);
       }
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err);
       console.log(`${ErrorMessage.ErrorFindingRoutes} ${routeFile}`);
     };
   });
