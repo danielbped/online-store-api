@@ -17,7 +17,7 @@ describe('Expect that FavoriteService can', () => {
     "id": "MOCKED_USER_1_ID",
     "firstName": "MOCKED_USER_1_FIRST_NAME",
     "lastName": "MOCKED_USER_1_LAST_NAME",
-    "email": "MOCKED_USER_1_EMAIL",
+    "email": "MOCKED_USER_1_EMAIL@EMAIL.COM",
     createdAt,
     updatedAt,
     "password": "<PASSWORD>"
@@ -27,7 +27,7 @@ describe('Expect that FavoriteService can', () => {
     "id": "MOCKED_USER_2_ID",
     "firstName": "MOCKED_USER_2_FIRST_NAME",
     "lastName": "MOCKED_USER_2_LAST_NAME",
-    "email": "MOCKED_USER_2_EMAIL",
+    "email": "MOCKED_USER_2_EMAIL@EMAIL.COM",
     createdAt,
     updatedAt,
     "password": "<PASSWORD>"
@@ -62,7 +62,7 @@ describe('Expect that FavoriteService can', () => {
       }
     ];
 
-    const mockFavoriteList = jest.spyOn(favoriteService['favoriteModel'], 'list');
+    const mockFavoriteList = jest.spyOn(favoriteService, 'getAll');
     mockFavoriteList.mockResolvedValue(ExpectedResponse);
 
     const favoriteList = await favoriteService.getAll();
@@ -85,7 +85,7 @@ describe('Expect that FavoriteService can', () => {
       }
     ];
 
-    const mockFavoriteByUser = jest.spyOn(favoriteService['favoriteModel'], 'getByUser');
+    const mockFavoriteByUser = jest.spyOn(favoriteService, 'getAllByUser');
     mockFavoriteByUser.mockResolvedValue(ExpectedResponse);
 
     const favoriteByUser = await favoriteService.getAllByUser('MOCKED_ID_1');
@@ -117,7 +117,7 @@ describe('Expect that FavoriteService can', () => {
       updatedAt
     };
 
-    const mockCreate = jest.spyOn(favoriteService['favoriteModel'], 'create');
+    const mockCreate = jest.spyOn(favoriteService, 'create');
     mockCreate.mockResolvedValue(ExpectedResponse);
 
     const createdFavorite = await favoriteService.create(newFavorite);
@@ -139,7 +139,7 @@ describe('Expect that FavoriteService can', () => {
   test('5 - Remove a favorite by Id', async () => {
     const favoriteId = 'MOCKED_ID';
 
-    const mockFindById = jest.spyOn(favoriteService['favoriteModel'], 'findById');
+    const mockFindById = jest.spyOn(favoriteService, 'findById');
     mockFindById.mockResolvedValue({
       "id": favoriteId,
       "title": 'MOCKED_TITLE',
@@ -151,7 +151,7 @@ describe('Expect that FavoriteService can', () => {
       updatedAt
     });
 
-    const mockRemove = jest.spyOn(favoriteService['favoriteModel'], 'remove');
+    const mockRemove = jest.spyOn(favoriteService, 'remove');
     mockRemove.mockResolvedValue(true);
 
     const removedFavorite = await favoriteService.remove(favoriteId);
@@ -167,5 +167,27 @@ describe('Expect that FavoriteService can', () => {
     mockFindById.mockResolvedValue(null);
 
     await expect(favoriteService.remove(favoriteId)).rejects.toThrow(ErrorMessage.FavoriteNotFound);
+  });
+
+  test('7 - Find a favorite by Id', async () => {
+    const favoriteId = 'MOCKED_ID';
+    const ExpectedResponse = {
+      "id": favoriteId,
+      "title": 'MOCKED_TITLE',
+      "itemId": 'MOCKED_ITEM_ID',
+      "price": "150",
+      "images": MOCKED_IMAGES,
+      "user": MOCKED_USER,
+      createdAt,
+      updatedAt
+    };
+
+    const mockFindById = jest.spyOn(favoriteService, 'findById');
+    mockFindById.mockResolvedValue(ExpectedResponse);
+
+    const foundFavorite = await favoriteService.findById(favoriteId);
+
+    expect(foundFavorite).toEqual(ExpectedResponse);
+    expect(mockFindById).toHaveBeenCalledWith(favoriteId);
   });
 });

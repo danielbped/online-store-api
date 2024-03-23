@@ -19,7 +19,7 @@ describe('Expect that UserService can', () => {
         "id": 'MOCKED_ID_1',
         "firstName": 'MOCKED_FIRST_NAME',
         "lastName": "MOCKED_LAST_NAME",
-        "email": 'MOCKED_EMAIL_1',
+        "email": 'MOCKED_EMAIL_1@EMAIL.COM',
         "password": '<PASSWORD>',
         createdAt,
         updatedAt
@@ -28,7 +28,7 @@ describe('Expect that UserService can', () => {
         "id": 'MOCKED_ID_2',
         "firstName": 'MOCKED_FIRST_NAME',
         "lastName": "MOCKED_LAST_NAME",
-        "email": 'MOCKED_EMAIL_2',
+        "email": 'MOCKED_EMAIL_2@EMAIL.COM',
         "password": '<PASSWORD>',
         createdAt,
         updatedAt
@@ -49,7 +49,7 @@ describe('Expect that UserService can', () => {
       "id": 'MOCKED_ID_1',
       "firstName": 'MOCKED_FIRST_NAME',
       "lastName": "MOCKED_LAST_NAME",
-      "email": 'MOCKED_EMAIL_1',
+      "email": 'MOCKED_EMAIL_1@EMAIL.COM',
       "password": '<PASSWORD>',
       createdAt,
       updatedAt
@@ -79,7 +79,7 @@ describe('Expect that UserService can', () => {
     const newUser = {
       "firstName": 'MOCKED_FIRST_NAME',
       "lastName": "MOCKED_LAST_NAME",
-      "email": 'MOCKED_EMAIL',
+      "email": 'MOCKED_EMAIL@EMAIL.COM',
       "password": '<PASSWORD>',
     };
 
@@ -87,7 +87,7 @@ describe('Expect that UserService can', () => {
       "id": 'MOCKED_ID',
       "firstName": 'MOCKED_FIRST_NAME',
       "lastName": "MOCKED_LAST_NAME",
-      "email": 'MOCKED_EMAIL',
+      "email": 'MOCKED_EMAIL@EMAIL.COM',
       "password": '<PASSWORD>',
       createdAt,
       updatedAt
@@ -105,7 +105,7 @@ describe('Expect that UserService can', () => {
   test('5 - Handle errors when creating a user', async () => {
     const newUser = {
       "lastName": "MOCKED_LAST_NAME",
-      "email": 'MOCKED_EMAIL',
+      "email": 'MOCKED_EMAIL@EMAIL.COM',
       "password": '<PASSWORD>',
     };
 
@@ -113,13 +113,13 @@ describe('Expect that UserService can', () => {
   });
 
   test('6 - Login a user', async () => {
-    const userEmail = 'MOCKED_EMAIL';
+    const userEmail = 'MOCKED_EMAIL@EMAIL.COM';
     const userPassword = '<PASSWORD>';
 
     const mockFindByEmail = jest.spyOn(userService['userModel'], 'findByEmail');
     mockFindByEmail.mockResolvedValue({
       id: 'MOCKED_ID',
-      firstName: 'MOCKED_EMAIL',
+      firstName: 'MOCKED_EMAIL@EMAIL.COM',
       lastName: 'MOCKED_LAST_NAME',
       email: userEmail,
       password: await userService['passwordHandler'].encode(userPassword),
@@ -135,11 +135,11 @@ describe('Expect that UserService can', () => {
   });
 
   test('7 - Handle errors when logging in a user', async () => {
-    const userEmail = 'MOCKED_NON_EXISTENT_EMAIL';
+    const userEmail = 'MOCKED_NON_EXISTENT_EMAIL@EMAIL.COM';
     const userPassword = '<PASSWORD>';
 
     const mockFindByEmail = jest.spyOn(userService['userModel'], 'findByEmail');
-    mockFindByEmail.mockResolvedValue(null);
+    mockFindByEmail.mockRejectedValue(null);
 
     await expect(userService.login(userEmail, userPassword)).rejects.toThrow(ErrorMessage.UserNotFound);
   });
@@ -149,7 +149,7 @@ describe('Expect that UserService can', () => {
       "id": 'MOCKED_ID_1',
       "firstName": 'MOCKED_FIRST_NAME',
       "lastName": "MOCKED_LAST_NAME",
-      "email": 'MOCKED_EMAIL_1',
+      "email": 'MOCKED_EMAIL_1@EMAIL.COM',
       "password": '<PASSWORD>',
       createdAt,
       updatedAt
@@ -165,7 +165,7 @@ describe('Expect that UserService can', () => {
   });
 
   test('9 - Handle error when user is not found in Email', async () => {
-    const nonExistentUserEmail = 'NON_EXISTENT_EMAIL';
+    const nonExistentUserEmail = 'NON_EXISTENT_EMAIL@EMAIL.COM';
   
     const mockFindByEmail = jest.spyOn(userService['userModel'], 'findByEmail');
     mockFindByEmail.mockRejectedValue(new Error(ErrorMessage.UserNotFound));
