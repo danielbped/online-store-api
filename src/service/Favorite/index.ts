@@ -1,7 +1,7 @@
 
 import { ICreateFavoriteDTO } from "../../entity/Favorite";
 import FavoriteModel from "../../model/Favorite";
-
+import ErrorMessage from "../../utils/ErrorMessage";
 
 export default class FavoriteService {
   private favoriteModel = new FavoriteModel();
@@ -23,7 +23,7 @@ export default class FavoriteService {
       }
     }
 
-    throw new Error('Missing required parameters.');
+    throw new Error(ErrorMessage.MissingRequiredParameters);
   }
 
   public async remove(id: string) {
@@ -31,7 +31,7 @@ export default class FavoriteService {
       try {
         const favorite = await this.favoriteModel.findById(id);
         if (!favorite) {
-          throw new Error('Favorite not found.');
+          throw new Error(ErrorMessage.FavoriteNotFound);
         };
 
         return this.favoriteModel.remove(id);
@@ -40,6 +40,6 @@ export default class FavoriteService {
       }
     }
 
-    throw new Error('Missing favorite Id.');
+    throw new Error(ErrorMessage.MissingFavoriteId);
   }
 }

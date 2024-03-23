@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
-import { ProductsProvider } from '../../provider/ProductsProvider'
+import ProductsProvider from '../../provider/ProductsProvider'
+import ErrorMessage from '../../utils/ErrorMessage';
 
 const router = Router({ mergeParams: true });
 
@@ -14,7 +15,7 @@ router.get('/', async (_req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -28,7 +29,7 @@ router.get('/:id', async (req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -37,4 +38,4 @@ const product = (root: Router) => {
   root.use('/product', router);
 };
 
-export { product };
+export default product;

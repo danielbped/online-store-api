@@ -1,11 +1,11 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm"
 import { uuid } from "uuidv4"
-import { User } from "./User";
+import User from "./User";
 
 export interface ICreateFavoriteDTO extends Omit<Favorite, 'id'> {}
 
 @Entity()
-export class Favorite {
+export default class Favorite {
     @PrimaryColumn()
     public readonly id!: string;
 

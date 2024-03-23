@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import ErrorMessage from '../utils/ErrorMessage';
 
 const router = Router({ mergeParams: true });
 
@@ -15,7 +16,7 @@ const findAvailableRoutes = () => {
       }
     } catch (error) {
       console.error(error)
-      console.log(`Encountered Error initializing routes from ${routeFile}`);
+      console.log(`${ErrorMessage.ErrorFindingRoutes} ${routeFile}`);
     };
   });
 };

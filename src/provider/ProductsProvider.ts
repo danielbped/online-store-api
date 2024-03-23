@@ -5,7 +5,7 @@ dotenv.config();
 
 const { STORE_API_KEY, STORE_API_PASSWORD, STORE_NAME } = process.env;
 
-export class ProductsProvider {
+export default class ProductsProvider {
 
   private baseURL: AxiosInstance;
 

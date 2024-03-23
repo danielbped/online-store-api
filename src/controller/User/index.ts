@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
 import UserService from '../../service/User';
-import { User } from '../../entity/User';
+import User from '../../entity/User';
+import ErrorMessage from '../../utils/ErrorMessage';
 
 const router = Router({ mergeParams: true });
 
@@ -15,7 +16,7 @@ router.get('/', async (_req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -29,7 +30,7 @@ router.post('/', async (req, res) => {
   } catch (err: any) {
     console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -38,4 +39,4 @@ const user = (root: Router) => {
   root.use('/user', router)
 };
 
-export { user };
+export default user;

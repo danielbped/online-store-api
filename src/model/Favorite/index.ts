@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../database";
-import { Favorite } from "../../entity/Favorite";
+import Favorite from "../../entity/Favorite";
 import { ICreateFavoriteDTO } from "../../entity/Favorite";
 
 export default class FavoriteModel {

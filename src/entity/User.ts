@@ -4,7 +4,7 @@ import { uuid } from "uuidv4"
 export interface ICreateUserDTO extends Omit<User, 'id'> {}
 
 @Entity()
-export class User {
+export default class User {
     @PrimaryColumn()
     public readonly id!: string;
 
