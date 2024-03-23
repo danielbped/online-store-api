@@ -2,10 +2,13 @@ import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
 import ProductsProvider from '../../provider/ProductsProvider'
 import ErrorMessage from '../../utils/ErrorMessage';
+import Authentication from '../../middleware/Authentication';
 
 const router = Router({ mergeParams: true });
 
 const productsProvider = new ProductsProvider();
+
+const { isTokenValid } = new Authentication();
 
 router.get('/', async (_req, res) => {
   try {
@@ -35,7 +38,10 @@ router.get('/:id', async (req, res) => {
 });
 
 const product = (root: Router) => {
-  root.use('/product', router);
+  root.use('/product',
+    isTokenValid,
+    router
+  );
 };
 
 export default product;

@@ -17,7 +17,13 @@ export default class UserService {
   };
 
   public async findById(id: string) {
-    return this.userModel.findById(id);
+    const user = this.userModel.findById(id);
+    
+    if (!user) {
+      throw new Error(ErrorMessage.UserNotFound);
+    };
+
+    return user;
   };
 
   public async create(user: ICreateUserDTO) {

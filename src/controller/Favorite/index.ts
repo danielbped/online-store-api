@@ -4,12 +4,15 @@ import FavoriteService from '../../service/Favorite';
 import Favorite from '../../entity/Favorite';
 import ErrorMessage from '../../utils/ErrorMessage';
 import Authentication from '../../middleware/Authentication';
+import UserService from '../../service/User';
 
 const router = Router({ mergeParams: true });
 
 const favoriteService = new FavoriteService();
 
-const { isTokenValid } = new Authentication();
+const userService = new UserService();
+
+const { isTokenValid, isAuthorized } = new Authentication();
 
 router.get('/', async (_req, res) => {
   try {
@@ -24,7 +27,7 @@ router.get('/', async (_req, res) => {
   };
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', isAuthorized, async (req, res) => {
   try {
     const { id } = req.params;
     const result = await favoriteService.getAllByUser(id);
@@ -38,9 +41,13 @@ router.get('/:id', async (req, res) => {
   };
 });
 
-router.post('/', async (req, res) => {
+router.post('/:id', isAuthorized, async (req, res) => {
   try {
-    const { title, itemId, price, images, user } = req.body;
+    const { id } = req.params;
+    const { title, itemId, price, images } = req.body;
+
+    const user = await userService.findById(id);
+
     const result = await favoriteService.create({ title, itemId, price, images, user } as Favorite);
 
     return res.status(StatusCodes.CREATED).json(result);
@@ -52,11 +59,10 @@ router.post('/', async (req, res) => {
   };
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id/:favId', isAuthorized, async (req, res) => {
   try {
-    const { id } = req.params;
-
-    await favoriteService.remove(id);
+    const { favId } = req.params;
+    await favoriteService.remove(favId);
 
     return res.status(StatusCodes.NO_CONTENT).send();
   } catch (err: any) {
