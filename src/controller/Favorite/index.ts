@@ -1,11 +1,15 @@
 import { Router } from 'express';
-import { StatusCodes } from 'http-status-codes'
+import { StatusCodes } from 'http-status-codes';
 import FavoriteService from '../../service/Favorite';
-import { Favorite } from '../../entity/Favorite';
+import Favorite from '../../entity/Favorite';
+import ErrorMessage from '../../utils/ErrorMessage';
+import Authentication from '../../middleware/Authentication';
 
 const router = Router({ mergeParams: true });
 
 const favoriteService = new FavoriteService();
+
+const { isTokenValid } = new Authentication();
 
 router.get('/', async (_req, res) => {
   try {
@@ -15,7 +19,7 @@ router.get('/', async (_req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -29,7 +33,7 @@ router.get('/:id', async (req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -43,7 +47,7 @@ router.post('/', async (req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
@@ -58,13 +62,16 @@ router.delete('/:id', async (req, res) => {
   } catch (err: any) {
     console.error(err.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || 'Internal server error'
+      message: err.message || ErrorMessage.InternalServerError
     });
   };
 });
 
 const favorite = (root: Router) => {
-  root.use('/favorite', router)
+  root.use('/favorite',
+    isTokenValid,
+    router
+  )
 };
 
-export { favorite };
+export default favorite;
