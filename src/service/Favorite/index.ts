@@ -26,10 +26,11 @@ export default class FavoriteService {
     throw new Error(ErrorMessage.MissingRequiredParameters);
   }
 
-  public async remove(id: string) {
+  public async remove(id: string): Promise<boolean> {
     if (id) {
       try {
         const favorite = await this.favoriteModel.findById(id);
+
         if (!favorite) {
           throw new Error(ErrorMessage.FavoriteNotFound);
         };
