@@ -1,9 +1,11 @@
 import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
 import express, { NextFunction, Request, Response } from 'express';
-import login from '../../controller/Login';
+import login from '../../routes/Login';
 import UserService from '../../service/User';
 import LoginValidation from '../../middleware/Login';
+import UserController from '../../controller/User';
+import LoginController from '../../controller/Login';
 
 jest.mock('../../service/User');
 
@@ -29,24 +31,25 @@ const MOCKED_USER = {
 
 describe.only('Expected that Login Route', () => {
   let app: express.Express;
-  let userService: UserService;
+  let userController: UserController;
+  let loginController: LoginController;
   let loginValidation: LoginValidation;
 
   beforeEach(() => {
     jest.clearAllMocks();
     app = express();
     app.use(express.json());
-    userService = new UserService();
-    loginValidation = new LoginValidation(userService);
+    userController = new UserController();
+    loginValidation = new LoginValidation(userController);
     login(app);
   });
 
   test('1 - Responds with status code 200 and token on successful login', async () => {
-    jest.spyOn(userService, 'findByEmail').mockResolvedValue(MOCKED_USER);
+    jest.spyOn(userController, 'findByEmail').mockResolvedValue(MOCKED_USER);
     jest.spyOn(loginValidation, 'validateInfo').mockImplementation((_req: Request, _res: Response, next: NextFunction): any => next());
   
-    jest.spyOn(userService, 'findByEmail').mockResolvedValue(MOCKED_USER);
-    jest.spyOn(userService, 'login').mockResolvedValue(MOCKED_TOKEN);
+    jest.spyOn(userController, 'findByEmail').mockResolvedValue(MOCKED_USER);
+    jest.spyOn(loginController, 'execute').mockResolvedValue(MOCKED_TOKEN);
   
     const response = await request(app)
       .post('/login')
