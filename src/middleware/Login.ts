@@ -17,6 +17,12 @@ export default class LoginValidation {
     try {
       const { email, password } = req.body;
 
+      if (!email || !password) {
+        return res.status(StatusCodes.BAD_REQUEST).json({
+          message: ErrorMessage.MissingRequiredParameters,
+        });
+      };
+
       const user = await this.userController.findByEmail(email);
 
       if (!user) {
@@ -36,7 +42,7 @@ export default class LoginValidation {
       return next();
     } catch (err: any) {
       console.error(err);
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message });
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message || ErrorMessage.InternalServerError });
     };
   };
 };

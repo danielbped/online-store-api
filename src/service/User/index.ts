@@ -85,7 +85,6 @@ export default class UserService {
         throw new Error(err.message || ErrorMessage.UnexpectedError);
       };
     };
-
     throw new Error(ErrorMessage.MissingRequiredParameters);
   };
 };

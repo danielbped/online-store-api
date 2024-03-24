@@ -1,6 +1,5 @@
 import { NextFunction, Router } from 'express';
 import { StatusCodes } from 'http-status-codes'
-import UserService from '../../service/User';
 import ErrorMessage from '../../utils/ErrorMessage';
 import LoginValidation from '../../middleware/Login';
 import { Request, Response } from 'express';

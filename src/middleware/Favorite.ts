@@ -37,7 +37,7 @@ export default class FavoriteValidation {
       return next();
     } catch (err: any) {
       console.error(err);
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message });
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message: err.message || ErrorMessage.InternalServerError });
     };
   };
 };

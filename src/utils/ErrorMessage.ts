@@ -10,7 +10,7 @@ export default {
   FavoriteNotFound: 'Favorite not found.',
   MissingFavoriteId: 'Missing favorite Id.',
   EncodeError: 'Something went wrong while encoding password.',
-  WrongPassword: 'Wrond password.',
+  WrongPassword: 'Wrong password.',
   UserNotFound: 'User not found.',
   IdNotFound: 'Id not found.',
   Unauthorized: 'User has no permission to deal with it.',
