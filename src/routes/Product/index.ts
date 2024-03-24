@@ -1,15 +1,12 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import ErrorMessage from '../../utils/ErrorMessage';
-import Authentication from '../../middleware/Authentication';
 import { Request, Response } from 'express';
 import ProductController from '../../controller/Product';
 
 const router = Router({ mergeParams: true });
 
 const productController = new ProductController();
-
-const { isTokenValid } = new Authentication();
 
 /**
  * @openapi
@@ -79,7 +76,6 @@ router.get('/:id', async (req: Request, res: Response) => {
 
 const product = (root: Router) => {
   root.use('/product',
-    isTokenValid,
     router
   );
 };
