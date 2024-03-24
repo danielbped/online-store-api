@@ -9,8 +9,16 @@ const PORT = 3000;
 const app = express();
 
 app.use(express.json());
+
+const corsOptions = {
+  origin: /(localhost)/,
+  optionsSuccessStatus: 200,
+  methods: 'GET, HEAD, PUT, POST, DELETE',
+};
+
+app.use(cors(corsOptions));
+
 app.use(router);
-app.use(cors());
 
 databaseConnect();
 
