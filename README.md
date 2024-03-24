@@ -79,7 +79,7 @@ STORE_NAME=
 
 ```
 
-Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, e alterar os dados **SECRET_KEY_JWT**,**STORE_API_KEY**, **STORE_API_PASSWORD** e **STORE_NAME** de acordo com a loja vinculada ao Shopify. Em relação às outras variáveis, podem ser usadas as credenciais presentes no arquivo, são responsáveis pela criação do banco de dados.
+Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, e alterar os dados **STORE_API_KEY**, **STORE_API_PASSWORD** e **STORE_NAME** de acordo com a loja vinculada ao Shopify. Em relação às outras variáveis, podem ser usadas as credenciais presentes no arquivo, são responsáveis pela criação do banco de dados.
 
 ## Iniciando o projeto <a name="start"></a>
 
