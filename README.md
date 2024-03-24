@@ -9,6 +9,9 @@ A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como pro
 # Sumário
 - [Tecnologias utilizadas](#tecnologias)
 - [Instruções para rodar o projeto](#instrucoes)
+  - [.env](#env)
+  - [Iniciando o projeto](#start)
+  - [Rotas e autenticação](#rotas)
 
 ## Tecnologias Utilizadas <a name="tecnologias"></a>
 - **[Node.js](https://nodejs.org/en/)**: Plataforma de desenvolvimento para construção do ambiente de servidor.
@@ -26,6 +29,7 @@ A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como pro
 - **[Supertest](https://www.npmjs.com/package/supertest)**: Biblioteca utilizada para testar APIs HTTP.
 - **[Uuidv4](https://www.npmjs.com/package/uuidv4)**: Pacote para geração de UUIDs (identificadores únicos universais) versão 4.
 - **[Docker](https://docs.docker.com/compose/)**: Uma ferramenta para definir e executar aplicações multi-contêineres. É a chave para desbloquear uma experiência de desenvolvimento e implantação simplificada e eficiente.
+- **[Swagger](https://swagger.io/)**: Ferramente utilizada para criar documentações exemplificando a utilização das rotas, de uma forma prática.
 
 ## Instruções para rodar o projeto <a name="instrucoes"></a>
 
@@ -59,7 +63,7 @@ Outro passo importante é instanciarmos o banco de dados. Para isso, foi criado 
   docker-compose up -d
 ```
 
-## .env
+## .env <a name="env"></a>
 Na raiz do projeto, será necessário criar um arquivo .env, com as seguintes informações:
 
 ```
@@ -77,7 +81,7 @@ STORE_NAME=
 
 Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, e alterar os dados **SECRET_KEY_JWT**,**STORE_API_KEY**, **STORE_API_PASSWORD** e **STORE_NAME** de acordo com a loja vinculada ao Shopify. Em relação às outras variáveis, podem ser usadas as credenciais presentes no arquivo, são responsáveis pela criação do banco de dados.
 
-## Iniciando o projeto
+## Iniciando o projeto <a name="start"></a>
 
 Para rodar o projeto na sua máquina, basta utilizar o comando a seguir:
 
@@ -92,3 +96,6 @@ Caso tudo esteja de acordo, você verá as seguintes mensagens no terminal:
   Database connected successfully
 ```
 
+## Rotas e autenticação <a name="rotas"></a>
+
+Para visualizar as rotas disponíveis, também como seus respectivos conteúdos de body e parametros, basta navegar para a rota **http://localhost:3000/docs**, onde está disponibilizada uma documentação exclusiva das rotas, desenvolvida utilizando Swagger. Vale a pena ressaltar que algumas rotas precisarão do token recebido ao realizar o login, então basta utilizar **Bearer token-recebido** no parametro Authorization dos headers da api para poder utilizar as rotas livremente.
