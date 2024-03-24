@@ -29,7 +29,7 @@ export default class Authentication {
   };
 
   public async isAuthorized(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    const token = req.headers.authorization as string;
+    const token = (req.headers.authorization as string).split(' ')[1];
     const { id } = req.params;
 
     try {
