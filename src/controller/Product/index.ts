@@ -1,48 +1,17 @@
-import { Router } from 'express';
-import { StatusCodes } from 'http-status-codes'
-import ProductsProvider from '../../provider/ProductsProvider'
-import ErrorMessage from '../../utils/ErrorMessage';
-import Authentication from '../../middleware/Authentication';
-import { Request, Response } from 'express';
+import ProductsProvider from "../../provider/ProductsProvider";
 
-const router = Router({ mergeParams: true });
+export default class ProductController {
+  private productProvider: ProductsProvider;
 
-const productsProvider = new ProductsProvider();
-
-const { isTokenValid } = new Authentication();
-
-router.get('/', async (_req: Request, res: Response) => {
-  try {
-    const result = await productsProvider.list();
-
-    return res.status(StatusCodes.OK).json(result);
-  } catch (err: any) {
-    console.error(err);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || ErrorMessage.InternalServerError
-    });
+  public constructor() {
+    this.productProvider = new ProductsProvider();
   };
-});
 
-router.get('/:id', async (req: Request, res: Response) => {
-  try {
-    const { id } = req.params;
-    const result = await productsProvider.findById(id);
-
-    return res.status(StatusCodes.OK).json(result);
-  } catch (err: any) {
-    console.error(err);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || ErrorMessage.InternalServerError
-    });
+  public async list(): Promise<any[]> {
+    return this.productProvider.list();
   };
-});
 
-const product = (root: Router) => {
-  root.use('/product',
-    isTokenValid,
-    router
-  );
+  public async findById(id: string): Promise<any> {
+    return this.productProvider.findById(id);
+  };
 };
-
-export default product;
