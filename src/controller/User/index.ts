@@ -1,46 +1,26 @@
-import { Router } from 'express';
-import { StatusCodes } from 'http-status-codes'
-import UserService from '../../service/User';
-import User from '../../entity/User';
-import ErrorMessage from '../../utils/ErrorMessage';
-import UserValidation from '../../middleware/User';
-import { Request, Response } from 'express';
+import { ICreateUserDTO } from "../../entity/User";
+import UserService from "../../service/User";
 
-const router = Router({ mergeParams: true });
+export default class UserController {
+  private userService: UserService;
 
-const { validateInfo } = new UserValidation();
-
-const userService = new UserService();
-
-router.get('/', async (_req: Request, res: Response) => {
-  try {
-    const result = await userService.getAll();
-
-    return res.status(StatusCodes.OK).json(result);
-  } catch (err: any) {
-    console.error(err);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || ErrorMessage.InternalServerError
-    });
+  public constructor() {
+    this.userService = new UserService();
   };
-});
 
-router.post('/', validateInfo, async (req: Request, res: Response) => {
-  try {
-    const { firstName, lastName, email, password } = req.body;
-    const result = await userService.create({ firstName, lastName, email, password } as User);
-
-    return res.status(StatusCodes.CREATED).json(result);
-  } catch (err: any) {
-    console.error(err);
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: err.message || ErrorMessage.InternalServerError
-    });
+  public async getAll() {
+    return this.userService.getAll();
   };
-});
 
-const user = (root: Router) => {
-  root.use('/user', router)
+  public async findById(id: string) {
+    return this.userService.findById(id);
+  };
+
+  public async findByEmail(email: string) {
+    return this.userService.findByEmail(email);
+  };
+
+  public async create(user: ICreateUserDTO) {
+    return this.userService.create(user);
+  };
 };
-
-export default user;
