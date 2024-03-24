@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { StatusCodes } from 'http-status-codes';
-import { health } from '../../controller/Health';
+import { health } from '../../routes/Health';
 
 describe('Expect that Health Route can', () => {
   const app = require('express')();
