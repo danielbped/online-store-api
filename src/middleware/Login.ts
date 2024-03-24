@@ -1,23 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import UserService from '../service/User';
 import ErrorMessage from '../utils/ErrorMessage';
 import PasswordHandler from '../helper/passwordHandler';
+import UserController from '../controller/User';
 
 export default class LoginValidation {
-  private userService: UserService;
+  private userController: UserController;
 
   private passwordHandler = new PasswordHandler();
 
-  constructor(userService: UserService) {
-    this.userService = userService;
+  constructor(userController: UserController) {
+    this.userController = userController;
   };
 
   public async validateInfo(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     try {
       const { email, password } = req.body;
 
-      const user = await this.userService.findByEmail(email);
+      const user = await this.userController.findByEmail(email);
 
       if (!user) {
         return res.status(StatusCodes.NOT_FOUND).json({
