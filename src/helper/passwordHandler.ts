@@ -1,13 +1,27 @@
 import bcrypt from 'bcrypt';
 
 export default class PasswordHandler {
-  public encode = (password: string): Promise<string>  => {
-    const saltRounds = 10;
-    
-    return bcrypt.hash(password, saltRounds);
-  }
+  private readonly saltRounds: number;
 
-  public compare = (password: string, hash: string): Promise<boolean> => {
-    return bcrypt.compare(password, hash);
-  }
-}
+  public constructor(saltRounds: number = 10) {
+    this.saltRounds = saltRounds;
+  };
+
+  public encode = (password: string): Promise<string> | null  => {
+    try {
+      return bcrypt.hash(password, this.saltRounds);
+    } catch (err) {
+      console.error(err)
+      return null;
+    };
+  };
+
+  public compare = (password: string, hash: string): Promise<boolean> | null => {
+    try {
+      return bcrypt.compare(password, hash);
+    } catch (err) {
+      console.error(err)
+      return null;
+    };
+  };
+};
