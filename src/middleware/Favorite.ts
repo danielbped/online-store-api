@@ -6,6 +6,11 @@ import { FavoriteValidator } from '../helper/validator';
 export default class FavoriteValidation {
   private validator = new FavoriteValidator();
 
+  public constructor() {
+    this.validator = new FavoriteValidator();
+    this.validateInfo = this.validateInfo.bind(this)
+  }
+
   public async validateInfo(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     try {
       const { title, itemId, price, images } = req.body;

@@ -7,7 +7,13 @@ import UserService from '../service/User';
 export default class Authentication {
   private token = new Token();
 
-  private userService = new UserService();
+  private userService: UserService;
+
+  public constructor() {
+    this.userService = new UserService();
+    this.isTokenValid = this.isTokenValid.bind(this);
+    this.isAuthorized = this.isAuthorized.bind(this);
+  }
 
   public async isTokenValid(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     try {
@@ -15,10 +21,6 @@ export default class Authentication {
 
       if (!token || typeof token !== 'string') {
         return res.status(StatusCodes.UNAUTHORIZED).json({ message: ErrorMessage.TokenNotFound });
-      };
-
-      if (token.length < 210) {
-        return res.status(StatusCodes.UNAUTHORIZED).json({ message: ErrorMessage.InvalidToken });
       };
 
       return next();
@@ -30,6 +32,7 @@ export default class Authentication {
 
   public async isAuthorized(req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     const token = (req.headers.authorization as string).split(' ')[1];
+        
     const { id } = req.params;
 
     try {
