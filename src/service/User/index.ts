@@ -2,7 +2,7 @@
 import Token from "../../helper/token";
 import PasswordHandler from "../../helper/passwordHandler";
 import UserModel from "../../model/User";
-import { ICreateUserDTO } from "../../entity/User";
+import User, { ICreateUserDTO } from "../../entity/User";
 import ErrorMessage from "../../utils/ErrorMessage";
 
 export default class UserService {
@@ -62,7 +62,7 @@ export default class UserService {
     throw new Error(ErrorMessage.MissingRequiredParameters);
   };
 
-  public async login(email: string, password: string): Promise<string | null> {
+  public async login(email: string, password: string): Promise<{ token: string, user: User } | null> {
     if (email && password) {
       try {
         const user = await this.userModel.findByEmail(email);
@@ -78,8 +78,11 @@ export default class UserService {
         };
 
         const token = this.token.generate(user);
-        
-        return token;
+
+        return {
+          token,
+          user
+        };
       } catch (err: any) {
         console.error(err);
         throw new Error(err.message || ErrorMessage.UnexpectedError);
