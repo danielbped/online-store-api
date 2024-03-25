@@ -34,7 +34,7 @@ export default class FavoriteService {
   public async remove(id: string): Promise<boolean> {
     if (id) {
       try {
-        const favorite = await this.favoriteModel.findById(id);
+        const favorite = await this.favoriteModel.findByItemId(id);
 
         if (!favorite) {
           throw new Error(ErrorMessage.FavoriteNotFound);
