@@ -7,11 +7,16 @@ Trata-se da API de uma simulação de uma loja virtual, onde é possível cadast
 A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como provedora da listagem de produtos e seus devidos detalhes.
 
 # Sumário
+- [Licença](#licenca)
 - [Tecnologias utilizadas](#tecnologias)
 - [Instruções para rodar o projeto](#instrucoes)
   - [.env](#env)
   - [Iniciando o projeto](#start)
   - [Rotas e autenticação](#rotas)
+
+# Licença <a name="licença"></a>
+
+Este projeto está sob licença do [MIT](https://github.com/danielbped/online-store-api/blob/master/LICENSE)
 
 ## Tecnologias Utilizadas <a name="tecnologias"></a>
 - **[Node.js](https://nodejs.org/en/)**: Plataforma de desenvolvimento para construção do ambiente de servidor.
