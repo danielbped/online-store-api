@@ -13,6 +13,7 @@ A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como pro
   - [.env](#env)
   - [Iniciando o projeto](#start)
   - [Rotas e autenticação](#rotas)
+  - [Banco de dados](#db)
 
 # Licença <a name="licenca"></a>
 
@@ -104,3 +105,35 @@ Caso tudo esteja de acordo, você verá as seguintes mensagens no terminal:
 ## Rotas e autenticação <a name="rotas"></a>
 
 Para visualizar as rotas disponíveis, também como seus respectivos conteúdos de body e parametros, basta navegar para a rota **http://localhost:3000/docs**, onde está disponibilizada uma documentação exclusiva das rotas, desenvolvida utilizando Swagger. Vale a pena ressaltar que algumas rotas precisarão do token recebido ao realizar o login, então basta utilizar **Bearer token-recebido** no parametro Authorization dos headers da api para poder utilizar as rotas livremente.
+
+
+## Banco de dados <a name="db"></a>
+
+O banco de dados foi desenvolvido utilizando **PostgreSQL** com o auxílio da ORM **TypeORM** nos migrations e nas queries. A arquitetura do banco possui duas tabelas (User e Favorite), e suas colunas podem ser observadas a seguir:
+
+```
+  User
+
+  id          string
+  email       string
+  firstName   string
+  lastName    string
+  password    string
+  createdAt   Date
+  updatedAt   Date
+
+
+  Favorite
+
+  id          string
+  title       string
+  itemId      string
+  price       string
+  images      string[]
+  createdAt   Date
+  updatedAt   Date
+  userId      string
+
+```
+
+Para a geração de ids únicos e aleatórios, foi utilizada a biblioteca **Uuidv4** para que seja possível obter um dado mais robusto e de difícil repetição.
