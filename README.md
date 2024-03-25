@@ -14,7 +14,7 @@ A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como pro
   - [Iniciando o projeto](#start)
   - [Rotas e autenticação](#rotas)
 
-# Licença <a name="licença"></a>
+# Licença <a name="licenca"></a>
 
 Este projeto está sob licença do [MIT](https://github.com/danielbped/online-store-api/blob/master/LICENSE)
 
