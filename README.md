@@ -12,8 +12,10 @@ A API em questão utilizou a API da [Shopify](https://shopify.dev/docs) como pro
 - [Instruções para rodar o projeto](#instrucoes)
   - [.env](#env)
   - [Iniciando o projeto](#start)
-  - [Rotas e autenticação](#rotas)
-  - [Banco de dados](#db)
+- [Rotas e autenticação](#rotas)
+- [Banco de dados](#db)
+- [Testes](#testes)
+- [Futuras melhorias](#melhorias)
 
 # Licença <a name="licenca"></a>
 
@@ -137,3 +139,18 @@ O banco de dados foi desenvolvido utilizando **PostgreSQL** com o auxílio da OR
 ```
 
 Para a geração de ids únicos e aleatórios, foi utilizada a biblioteca **Uuidv4** para que seja possível obter um dado mais robusto e de difícil repetição.
+
+## Testes <a name="testes"></a>
+
+A aplicação possui alguns testes, porém alguns pararam de funcionar após alterações durante o desenvolvimento. A finalização dos testes fica para futuras melhorias no código.
+
+## Futuras Melhorias <a name="melhorias"></a>
+
+### Algumas melhorias que pretendo realizar futuramente são:
+- Rotas para atualizar, apagar e buscar todos os usários;
+- Gerenciamento de função dos usuários, diferenciar permissões de admin, clientes, etc;
+- Finalização dos testes, tanto os que pararam de funcionar, quanto o restante das rotas e funções;
+- Adicionar mais algumas validações de login, cadastros, também como melhorias ao lidar com os erros, adicionando novos casos de erro;
+- Alterar a origem do provider de produtos, facilitando a utilização da aplicação para outros fins de demonstração, sem necessitar de credenciais específicas;
+- Encontrar alguma forma de simplificar a documentação ao utilizar o swagger;
+- Unificar toda a aplicação no mesmo docker-compose para facilitar a utilização da aplicação em qualquer tipo de ambiente.
