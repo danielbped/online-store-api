@@ -22,6 +22,10 @@ export default class FavoriteModel {
     return this.favoriteRepository.findOne({ where: { id } });
   };
 
+  public async findByItemId(id: string): Promise<Favorite | null> {
+    return this.favoriteRepository.findOne({ where: { itemId: id } });
+  };
+
   public async create(data: ICreateFavoriteDTO): Promise<Favorite> {
     const favorite = new Favorite(data);
 
@@ -29,7 +33,7 @@ export default class FavoriteModel {
   };
 
   public async remove(id: string): Promise<boolean> {
-    await this.favoriteRepository.delete(id);
+    await this.favoriteRepository.delete({ itemId: id });
 
     return true;
   };
