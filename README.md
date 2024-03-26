@@ -1,6 +1,6 @@
 # Online Store
 
-Trata-se da API de uma simulação de uma loja virtual, onde é possível cadastrar novos usuários, realizar login, adicionar e remover produtoas aos favoritos e visualizar produtos.
+Trata-se da API de uma simulação de uma [loja virtual](https://github.com/danielbped/online-store), onde é possível cadastrar novos usuários, realizar login, adicionar e remover produtoas aos favoritos e visualizar produtos.
 
 ### Shopify
 
